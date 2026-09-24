@@ -115,7 +115,7 @@ h2 {
 
 .hero-stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(110px, 1fr));
+  grid-template-columns: repeat(4, minmax(118px, 1fr));
   gap: 10px;
 }
 
@@ -140,9 +140,22 @@ h2 {
   font-size: 24px;
 }
 
+.stat-alert strong {
+  color: var(--red);
+  font-size: 30px;
+}
+
+.stat-sub {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+
 .toolbar {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) 160px minmax(200px, 1fr) auto;
+  grid-template-columns: minmax(180px, 1fr) 140px 140px minmax(200px, 1fr) auto;
   gap: 10px;
   align-items: end;
   border: 1px solid var(--line);
@@ -320,10 +333,273 @@ label {
   line-height: 1.5;
 }
 
+/* 批号标签：点击可按批号筛选 */
+.batch-tag {
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 155, 53, 0.55);
+  background: rgba(212, 155, 53, 0.14);
+  color: #8a5f16;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.batch-tag:hover {
+  border-color: var(--amber);
+}
+
+.duration {
+  font-weight: 900;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+.duration-off {
+  color: var(--red);
+  text-decoration: line-through;
+  font-weight: 800;
+}
+
+.status-pill {
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.status-pill.pending {
+  background: rgba(212, 155, 53, 0.18);
+  color: #8a5f16;
+  border: 1px solid rgba(212, 155, 53, 0.5);
+}
+
+.status-pill.passed {
+  background: rgba(77, 118, 86, 0.16);
+  color: var(--green);
+  border: 1px solid rgba(77, 118, 86, 0.45);
+}
+
+.status-pill.failed {
+  background: rgba(181, 77, 72, 0.14);
+  color: var(--red);
+  border: 1px solid rgba(181, 77, 72, 0.5);
+}
+
+.status-pill.normal {
+  background: rgba(105, 113, 121, 0.12);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+
+.source-flag {
+  border-radius: 4px;
+  padding: 3px 7px;
+  background: var(--ink);
+  color: #fff8e8;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+/* 待复查卡片：斜纹警示，但不改变在放映顺序中的位置 */
+.segment-card.status-pending {
+  border-color: rgba(212, 155, 53, 0.65);
+  background:
+    repeating-linear-gradient(135deg, rgba(212, 155, 53, 0.07) 0 8px, transparent 8px 16px),
+    #fffdf7;
+}
+
+.segment-card.status-failed {
+  border-color: rgba(181, 77, 72, 0.6);
+  background: rgba(181, 77, 72, 0.05);
+}
+
+.segment-card.status-passed {
+  border-color: rgba(77, 118, 86, 0.55);
+}
+
+.review-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.pass-btn,
+.fail-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.pass-btn {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.fail-btn {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.handler-line,
+.pass-line {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.handler-line {
+  color: var(--red);
+}
+
+.pass-line {
+  color: var(--green);
+}
+
+/* 按批号分组的风险面板 */
+.warning-batch {
+  border: 1px solid rgba(181, 77, 72, 0.28);
+  border-radius: 8px;
+  background: rgba(181, 77, 72, 0.08);
+  padding: 10px;
+}
+
+.warning-batch.orphan {
+  border-style: dashed;
+  background: rgba(212, 155, 53, 0.08);
+  border-color: rgba(212, 155, 53, 0.55);
+}
+
+.warning-batch-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.warning-batch-head strong {
+  font-size: 13px;
+}
+
+.warning-batch-head span {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.warning-members {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 5px;
+}
+
+.warning-members li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+  font-size: 13px;
+}
+
+.member-pos {
+  font-weight: 800;
+}
+
+.member-tag {
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.member-tag.pending {
+  background: rgba(212, 155, 53, 0.2);
+  color: #8a5f16;
+}
+
+.member-tag.passed {
+  background: rgba(77, 118, 86, 0.18);
+  color: var(--green);
+}
+
+.member-tag.failed {
+  background: rgba(181, 77, 72, 0.16);
+  color: var(--red);
+}
+
+.member-tag.normal {
+  background: rgba(105, 113, 121, 0.14);
+  color: var(--muted);
+}
+
+.member-reason {
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* 弹窗 */
+.modal-backdrop[hidden] {
+  display: none;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(31, 36, 40, 0.45);
+}
+
+.modal {
+  width: min(460px, 100%);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.modal-form[hidden] {
+  display: none;
+}
+
+.modal-form {
+  display: grid;
+  gap: 12px;
+}
+
+.modal-form h2 {
+  margin-bottom: 0;
+}
+
+.modal-target {
+  margin: 0;
+  color: var(--red);
+  font-weight: 900;
+  font-size: 13px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 @media (max-width: 1120px) {
   .hero {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .toolbar,

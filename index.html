@@ -14,9 +14,15 @@
           <h1>胶片分镜条核对台</h1>
         </div>
         <div class="hero-stats">
+          <div class="stat-alert">
+            <span>待复查片段</span>
+            <strong id="pendingCount">0</strong>
+            <small class="stat-sub">问题源或同批关联</small>
+          </div>
           <div>
-            <span>总时长</span>
-            <strong id="totalDuration">0:00</strong>
+            <span>可放时长</span>
+            <strong id="playableDuration">0:00</strong>
+            <small class="stat-sub">总时长 <b id="fullDuration">0:00</b></small>
           </div>
           <div>
             <span>破损片段</span>
@@ -46,8 +52,17 @@
           </select>
         </label>
         <label>
+          复查状态
+          <select id="statusFilter">
+            <option value="all">全部</option>
+            <option value="pending">待复查</option>
+            <option value="passed">复查合格</option>
+            <option value="failed">复查不合格</option>
+          </select>
+        </label>
+        <label>
           搜索
-          <input id="searchInput" type="search" placeholder="片段编号或备注" />
+          <input id="searchInput" type="search" placeholder="编号、批号、备注或处理人" />
         </label>
         <button id="exportBtn">导出清单</button>
       </section>
@@ -59,6 +74,10 @@
             <label>
               片段编号
               <input id="codeInput" required placeholder="A-014" />
+            </label>
+            <label>
+              洗印批号
+              <input id="batchInput" required placeholder="例：洗-2609-01" />
             </label>
             <label>
               时长秒数
@@ -99,17 +118,86 @@
         <section class="panel list-panel">
           <div class="panel-head">
             <h2>放映顺序</h2>
-            <span>拖拽片段调整顺序</span>
+            <span>待复查段保留原位置，仅不计入可放时长</span>
           </div>
           <div id="segmentList" class="segment-list"></div>
         </section>
 
         <aside class="panel warning-panel">
-          <h2>试映前核对</h2>
+          <div class="panel-head">
+            <h2>同批风险核对</h2>
+            <span id="riskSummary">按洗印批号分组</span>
+          </div>
           <div id="warningList" class="warning-list"></div>
         </aside>
       </section>
     </main>
+
+    <div id="modalBackdrop" class="modal-backdrop" hidden>
+      <div class="modal" role="dialog" aria-modal="true">
+        <form id="reviewForm" class="modal-form" hidden>
+          <h2>复查不合格处理登记</h2>
+          <p class="modal-target" id="reviewTarget"></p>
+          <label>
+            处理人
+            <input id="handlerInput" required placeholder="例：王姐" />
+          </label>
+          <label>
+            处理说明
+            <textarea id="handlerNoteInput" rows="4" required placeholder="不合格原因及后续处理方式（修复、隔离或报废等）"></textarea>
+          </label>
+          <div class="modal-actions">
+            <button type="button" id="reviewCancel">取消</button>
+            <button class="primary" type="submit">保存处理结果</button>
+          </div>
+        </form>
+
+        <form id="editForm" class="modal-form" hidden>
+          <h2>编辑片段</h2>
+          <p class="modal-target" id="editTarget"></p>
+          <label>
+            片段编号
+            <input id="editCode" required />
+          </label>
+          <label>
+            洗印批号
+            <input id="editBatch" required placeholder="例：洗-2609-01" />
+          </label>
+          <label>
+            时长秒数
+            <input id="editDuration" required type="number" min="1" />
+          </label>
+          <label>
+            颜色偏移
+            <select id="editShift">
+              <option value="正常">正常</option>
+              <option value="偏红">偏红</option>
+              <option value="偏青">偏青</option>
+              <option value="偏黄">偏黄</option>
+              <option value="褪色">褪色</option>
+            </select>
+          </label>
+          <label>
+            破损情况
+            <select id="editDamage">
+              <option value="完好">完好</option>
+              <option value="轻微划痕">轻微划痕</option>
+              <option value="齿孔破损">齿孔破损</option>
+              <option value="接片松动">接片松动</option>
+              <option value="需跳过">需跳过</option>
+            </select>
+          </label>
+          <label>
+            备注
+            <textarea id="editNote" rows="3"></textarea>
+          </label>
+          <div class="modal-actions">
+            <button type="button" id="editCancel">取消</button>
+            <button class="primary" type="submit">保存并重新判定</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <script src="app.js"></script>
   </body>
